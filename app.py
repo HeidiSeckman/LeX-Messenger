@@ -138,8 +138,8 @@ with col_friends:
                 st.rerun()
 
 with col_chat:
-    default_chat = active_list[0][0] if active_list else (other_list[0] if other_list else None)
-    target = st.session_state.active_chat_handle or default_chat
+default_chat = None   
+target = st.session_state.active_chat_handle or default_chat
     if not target:
         st.markdown("<div class='msg-card' style='text-align:center;padding:40px;'>Select a friend on the left to start messaging.</div>", unsafe_allow_html=True)
     else:
