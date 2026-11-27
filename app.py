@@ -1,3 +1,4 @@
+import os
 import html
 import streamlit as st
 from supabase import create_client
@@ -6,8 +7,14 @@ st.set_page_config(page_title="LeX Messenger // LexiTech Studio", layout="wide")
 
 @st.cache_resource
 def get_sb():
-    url = st.secrets.get("SUPABASE_URL", "")
-    key = st.secrets.get("SUPABASE_KEY", "")
+    url = os.environ.get("SUPABASE_URL", "")
+    key = os.environ.get("SUPABASE_KEY", "")
+    if not url or not key:
+        try:
+            url = url or st.secrets.get("SUPABASE_URL", "")
+            key = key or st.secrets.get("SUPABASE_KEY", "")
+        except Exception:
+            pass
     return create_client(url, key) if url and key else None
 
 sb = get_sb()
