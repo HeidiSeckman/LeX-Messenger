@@ -71,13 +71,12 @@ friend_handles = sorted({
     for f in raw_friends
     if str(f.get("handle") if isinstance(f, dict) else f).lstrip("@").strip().lower() != my_low
 })
-
-h_logo, h_left, h_right = st.columns([0.05, 0.77, 0.18], vertical_alignment="center")
-with h_logo:
-    st.image("lex-logo.png", width=42)
-with h_left:
-    st.markdown(f"<h3 style='margin:0;'>LeX Messenger <span style='color:#94a3b8;font-size:14px;'>@{html.escape(my_handle)}</span></h3>", unsafe_allow_html=True)
-with h_right:
+_, c_top_logo, _ = st.columns([1.45, 0.3, 1.45])
+with c_top_logo:
+    st.image("lex-logo.png", width=76)
+st.markdown(f"<h3 style='text-align:center;margin:4px 0 10px 0;'>LeX Messenger <span style='color:#94a3b8;font-size:14px;'>@{html.escape(my_handle)}</span></h3>", unsafe_allow_html=True)
+_, c_out, _ = st.columns([1.3, 0.6, 1.3])
+with c_out:
     if st.button("Sign Out", use_container_width=True):
         st.session_state.lex_msg_user = None
         st.session_state.active_chat_handle = None
