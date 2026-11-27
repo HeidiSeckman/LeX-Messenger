@@ -45,7 +45,7 @@ if not st.session_state.lex_msg_user:
                     try:
                         res = sb.auth.sign_in_with_password({"email": em.strip(), "password": pw})
                         uid = res.user.id
-                        rows = sb.table("lex_profiles").select("*").eq("id", uid).execute().data
+                        rows = sb.table("lex_profiles").select("*").eq("user_id", uid).execute().data
                         if rows:
                             st.session_state.lex_msg_user = rows[0]
                             st.rerun()
