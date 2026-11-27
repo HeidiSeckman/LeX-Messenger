@@ -3,7 +3,7 @@ import html
 import streamlit as st
 from supabase import create_client
 
-st.set_page_config(page_title="LeX Messenger // LexiTech Studio", layout="wide")
+st.set_page_config(page_title="LeX Messenger // LexiTech Studio", page_icon="lex-logo.png", layout="wide")
 
 @st.cache_resource
 def get_sb():
