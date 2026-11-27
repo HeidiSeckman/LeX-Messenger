@@ -72,7 +72,9 @@ friend_handles = sorted({
     if str(f.get("handle") if isinstance(f, dict) else f).lstrip("@").strip().lower() != my_low
 })
 
-h_left, h_right = st.columns([0.82, 0.18])
+h_logo, h_left, h_right = st.columns([0.05, 0.77, 0.18], vertical_alignment="center")
+with h_logo:
+    st.image("lex-logo.png", width=42)
 with h_left:
     st.markdown(f"<h3 style='margin:0;'>LeX Messenger <span style='color:#94a3b8;font-size:14px;'>@{html.escape(my_handle)}</span></h3>", unsafe_allow_html=True)
 with h_right:
@@ -91,25 +93,43 @@ if sb and my_low:
 col_friends, col_chat = st.columns([0.32, 0.68], gap="medium")
 
 with col_friends:
-    st.markdown("<div class='msg-card'><b>Chats &amp; Approved Friends</b></div>", unsafe_allow_html=True)
+    st.markdown("<div class='msg-card'><b>Active Chats</b></div>", unsafe_allow_html=True)
     q_search = st.text_input("Search friends", placeholder="Filter by @handle...", label_visibility="collapsed")
-    shown_friends = [fh for fh in friend_handles if not q_search.strip() or q_search.strip().lstrip("@").lower() in fh.lower()]
-    if not shown_friends:
-        st.info("No approved friends found yet. Add friends on LeX Social first!")
-    for idx_f, fh in enumerate(shown_friends):
+    active_list = []
+    other_list = []
+    for fh in friend_handles:
         f_low = fh.lower()
-        thread_count = sum(
+        if q_search.strip() and q_search.strip().lstrip("@").lower() not in f_low:
+            continue
+        cnt = sum(
             1 for m in all_msgs
             if {str(m.get("sender_handle", "")).lstrip("@").lower(), str(m.get("recipient_handle", "")).lstrip("@").lower()} == {my_low, f_low}
-            and not str(m.get("body", "")).startswith(("[LEX_F]", "[LEX_NOTIF]"))
+            and not str(m.get("body", "")).startswith("[LEX_")
         )
-        lbl = f"@{fh} ({thread_count})" if thread_count else f"@{fh}"
-        if st.button(lbl, key=f"chat_sel_{idx_f}_{f_low}", use_container_width=True):
+        if cnt > 0:
+            active_list.append((fh, cnt))
+        else:
+            other_list.append(fh)
+
+    if not active_list:
+        st.caption("No active chats yet.")
+    for idx_f, (fh, cnt) in enumerate(active_list):
+        if st.button(f"@{fh} ({cnt})", key=f"chat_sel_{idx_f}_{fh.lower()}", use_container_width=True):
             st.session_state.active_chat_handle = fh
             st.rerun()
 
+    if other_list:
+        st.markdown("<div style='margin-top:10px;font-size:12px;color:#94a3b8;font-weight:700;'>Start New Chat</div>", unsafe_allow_html=True)
+        pick_new = st.selectbox("Start New Chat", ["Select a friend..."] + [f"@{fh}" for fh in other_list], label_visibility="collapsed", key="new_chat_dd")
+        if pick_new != "Select a friend...":
+            chosen = pick_new.lstrip("@")
+            if st.session_state.active_chat_handle != chosen:
+                st.session_state.active_chat_handle = chosen
+                st.rerun()
+
 with col_chat:
-    target = st.session_state.active_chat_handle or (shown_friends[0] if shown_friends else None)
+    default_chat = active_list[0][0] if active_list else (other_list[0] if other_list else None)
+    target = st.session_state.active_chat_handle or default_chat
     if not target:
         st.markdown("<div class='msg-card' style='text-align:center;padding:40px;'>Select a friend on the left to start messaging.</div>", unsafe_allow_html=True)
     else:
@@ -118,7 +138,7 @@ with col_chat:
         thread = [
             m for m in all_msgs
             if {str(m.get("sender_handle", "")).lstrip("@").lower(), str(m.get("recipient_handle", "")).lstrip("@").lower()} == {my_low, t_low}
-            and not str(m.get("body", "")).startswith(("[LEX_F]", "[LEX_NOTIF]"))
+            and not str(m.get("body", "")).startswith("[LEX_")
         ]
         chat_box = st.container(height=420)
         with chat_box:
