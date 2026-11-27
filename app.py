@@ -30,7 +30,10 @@ if "active_chat_handle" not in st.session_state:
     st.session_state.active_chat_handle = None
 
 if not st.session_state.lex_msg_user:
-    st.markdown("<h2 style='text-align:center;margin-top:24px;'>LeX Messenger</h2>", unsafe_allow_html=True)
+    _, c_logo, _ = st.columns([1.45, 0.3, 1.45])
+    with c_logo:
+        st.image("lex-logo.png", width=76)
+    st.markdown("<h2 style='text-align:center;margin-top:4px;'>LeX Messenger</h2>", unsafe_allow_html=True)
     st.markdown("<p style='text-align:center;color:#94a3b8;font-size:12px;letter-spacing:1.5px;'>POWERED BY LEX SOCIAL • LEXITECH STUDIO</p>", unsafe_allow_html=True)
     _, c_mid, _ = st.columns([1, 1.4, 1])
     with c_mid:
