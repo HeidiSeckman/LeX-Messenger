@@ -32,13 +32,23 @@ if "active_chat_handle" not in st.session_state:
     st.session_state.active_chat_handle = None
 
 if not st.session_state.lex_msg_user:
-    _, c_logo, _ = st.columns([1.45, 0.3, 1.45])
-    with c_logo:
-        st.image("lex-logo.png", width=76)
-    st.markdown("<h2 style='text-align:center;margin-top:4px;'>LeX Messenger</h2>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align:center;color:#94a3b8;font-size:12px;letter-spacing:1.5px;'>POWERED BY LEX SOCIAL • LEXITECH STUDIO</p>", unsafe_allow_html=True)
+    import base64
+    with open("lex-logo.png", "rb") as _lf:
+        _logo_b64 = base64.b64encode(_lf.read()).decode()
     _, c_mid, _ = st.columns([1, 1.4, 1])
     with c_mid:
+        st.markdown(
+            f'<div style="display:flex;align-items:center;gap:16px;background:linear-gradient(145deg,#121826 0%,#0b0e14 70%,#07090e 100%);'
+            f'border:1px solid #2e3748;border-radius:16px;padding:16px 20px;box-shadow:0 12px 32px rgba(0,0,0,0.8);margin:14px 0 18px 0;">'
+            f'<img src="data:image/png;base64,{_logo_b64}" style="width:68px;height:68px;border-radius:14px;object-fit:contain;flex-shrink:0;"/>'
+            f'<div><div style="font-size:26px;font-weight:800;color:#ffffff;line-height:1.1;letter-spacing:-0.4px;">LeX Messenger</div>'
+            f'<div style="font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:#94a3b8;margin:5px 0 8px 0;">Powered by LeX Social • LexiTech Studio</div>'
+            f'<span style="display:inline-block;font-size:10px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:#e2e5ec;'
+            f'border:1px solid #3b465c;background:rgba(226,229,236,0.07);padding:3px 10px;border-radius:999px;">Public Beta // 13+</span>'
+            f'</div></div>',
+            unsafe_allow_html=True,
+        )
+        
         with st.form("msg_login_form"):
             em = st.text_input("LeX Social Email")
             pw = st.text_input("Password", type="password")
