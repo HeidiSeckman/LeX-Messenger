@@ -71,11 +71,15 @@ friend_handles = sorted({
     for f in raw_friends
     if str(f.get("handle") if isinstance(f, dict) else f).lstrip("@").strip().lower() != my_low
 })
+
+import base64
+with open("lex-logo.png", "rb") as _lf:
+    _logo_b64 = base64.b64encode(_lf.read()).decode()
 h_left, h_mid, h_right = st.columns([0.41, 0.41, 0.18], vertical_alignment="center")
 with h_left:
     st.markdown(f"<h3 style='margin:0;'>LeX Messenger <span style='color:#94a3b8;font-size:14px;'>@{html.escape(my_handle)}</span></h3>", unsafe_allow_html=True)
 with h_mid:
-    st.image("lex-logo.png", width=76)
+    st.markdown(f'<div style="text-align:center;"><img src="data:image/png;base64,{_logo_b64}" style="width:96px;height:96px;border-radius:18px;object-fit:contain;box-shadow:0 8px 24px rgba(0,0,0,0.85);"/></div>', unsafe_allow_html=True)
 with h_right:
     if st.button("Sign Out", use_container_width=True):
         st.session_state.lex_msg_user = None
