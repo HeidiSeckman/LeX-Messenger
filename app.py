@@ -42,7 +42,7 @@ if not st.session_state.lex_msg_user:
             f'border:1px solid #2e3748;border-radius:16px;padding:16px 20px;box-shadow:0 12px 32px rgba(0,0,0,0.8);margin:14px 0 18px 0;">'
             f'<img src="data:image/png;base64,{_logo_b64}" style="width:68px;height:68px;border-radius:14px;object-fit:contain;flex-shrink:0;"/>'
             f'<div><div style="font-size:26px;font-weight:800;color:#ffffff;line-height:1.1;letter-spacing:-0.4px;">LeX Messenger</div>'
-            f'<div style="font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:#94a3b8;margin:5px 0 8px 0;">Powered by LeX Social • LexiTech Studio</div>'
+            f'<div><div style="font-family:Georgia,serif;font-size:28px;font-weight:800;color:#ffffff;line-height:1.1;letter-spacing:0.2px;">LeX Messenger</div>'
             f'<span style="display:inline-block;font-size:10px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:#e2e5ec;'
             f'border:1px solid #3b465c;background:rgba(226,229,236,0.07);padding:3px 10px;border-radius:999px;">Public Beta // 13+</span>'
             f'</div></div>',
