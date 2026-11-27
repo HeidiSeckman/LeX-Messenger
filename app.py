@@ -17,6 +17,8 @@ ST_CLOSE = "<" + "/style>"
 st.markdown(
     f"{ST_OPEN}"
     + ".stApp { background: #0b0e14; color: #f1f5f9; }"
+    + ".stApp { background: #0b0e14; color: #f1f5f9; }"
+    + ".block-container { padding-top: 1.5rem !important; }"
     + ".msg-card { background: #121826; border: 1px solid #263042; border-radius: 14px; padding: 14px; }"
     + ".bubble-me { background: #1e293b; border: 1px solid #3b465c; border-radius: 16px 16px 4px 16px; padding: 10px 14px; margin: 6px 0 6px auto; max-width: 72%; }"
     + ".bubble-them { background: #0f172a; border: 1px solid #1e293b; border-radius: 16px 16px 16px 4px; padding: 10px 14px; margin: 6px auto 6px 0; max-width: 72%; }"
