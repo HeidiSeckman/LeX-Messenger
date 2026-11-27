@@ -81,7 +81,7 @@ b_left, b_right = st.columns([0.84, 0.16], vertical_alignment="center")
 with b_left:
     st.markdown(
         f'<div style="display:flex;align-items:center;gap:14px;background:linear-gradient(145deg,#121826 0%,#0b0e14 70%,#07090e 100%);'
-        f'border:1px solid #2e3748;border-radius:14px;padding:10px 18px;box-shadow:0 10px 28px rgba(0,0,0,0.75);">'
+        f'border:1px solid #2e3748;border-radius:14px;padding:10px 18px;box-shadow:0 10px 28px rgba(0,0,0,0.75);margin-bottom:14px;">'
         f'<img src="data:image/png;base64,{_logo_b64}" style="width:46px;height:46px;border-radius:10px;object-fit:contain;"/>'
         f'<div><div style="font-size:20px;font-weight:800;color:#ffffff;line-height:1.1;">LeX Messenger <span style="color:#94a3b8;font-size:13px;font-weight:500;">@{html.escape(my_handle)}</span></div>'
         f'<div style="font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:#94a3b8;margin-top:2px;">Engineered by LexiTech Studio • Friends-Only Direct Chat</div></div></div>',
